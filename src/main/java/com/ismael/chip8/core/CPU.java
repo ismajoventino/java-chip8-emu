@@ -39,4 +39,23 @@ public class CPU {
 		this.y = (opcode & 0x00F0) >> 4;
 		this.kk = opcode & 0x00FF;
 	}
+	
+	public void execute() {
+		switch(opcode & 0xF000) {
+		case 0x0000:
+			if(opcode == 0x00E0) {
+				System.out.println("Executing: 00E0");
+			} else {
+				System.out.printf("Ignored opcode in category 0000: %04X\n", opcode);
+			}
+			break;
+		case 0x1000:
+			System.out.printf("Executing 1nn - Unconditional Jump to %03X\n", nnn);
+			registers.setPc(nnn);
+			break;
+		default:
+			System.out.printf("Ignored or unknown opcode: %04Z\n", opcode);
+			break;
+		}
+	}
 }
