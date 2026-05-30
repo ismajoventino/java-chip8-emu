@@ -54,7 +54,7 @@ public class CPU {
 			registers.setPc(nnn);
 			break;
 		default:
-			System.out.printf("Ignored or unknown opcode: %04Z\n", opcode);
+			System.out.printf("Ignored or unknown opcode: %04X\n", opcode);
 			break;
 		}
 	}
