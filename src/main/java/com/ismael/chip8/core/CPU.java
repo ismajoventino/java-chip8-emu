@@ -44,7 +44,10 @@ public class CPU {
 		switch(opcode & 0xF000) {
 		case 0x0000:
 			if(opcode == 0x00E0) {
-				System.out.println("Executing: 00E0");
+				System.out.println("Executing: 00E0"); 
+			} else if(opcode == 0x00EE) {
+				registers.setPc(stack.pop());
+				
 			} else {
 				System.out.printf("Ignored opcode in category 0000: %04X\n", opcode);
 			}
@@ -52,6 +55,29 @@ public class CPU {
 		case 0x1000:
 			System.out.printf("Executing 1nn - Unconditional Jump to %03X\n", nnn);
 			registers.setPc(nnn);
+			break;
+		case 0x2000:
+			stack.push(registers.getPc());
+			registers.setPc(nnn);
+		case 0x3000: 
+			if(registers.getV(x) == kk) {
+				registers.setPc(registers.getPc() + 2);
+			}
+			break;
+		case 0x4000: 
+			if(registers.getV(x) != kk) {
+				registers.setPc(registers.getPc() + 2);
+			}
+			break;
+		case 0x5000:
+			if(registers.getV(x) == registers.getV(y)) {
+				registers.setPc(registers.getPc() + 2);
+			}
+			break;
+		case 0x6000:
+			if(registers.getV(x) != registers.getV(y)) {
+				registers.setPc(registers.getPc() + 2);
+			}
 			break;
 		default:
 			System.out.printf("Ignored or unknown opcode: %04X\n", opcode);
