@@ -147,12 +147,12 @@ CHIP-8 Layout     →     QWERTY Mapping
 - [x] `00E0` (CLS) and `1nnn` (JP) implemented as first working instructions
 
 ### Phase 3 — Opcodes
-- [ ] **Group A — Control flow:** `00E0`, `00EE`, `1nnn`, `2nnn`, `Bnnn`
-- [ ] **Group B — Conditionals:** `3xkk`, `4xkk`, `5xy0`, `9xy0`
-- [ ] **Group C — Load & assign:** `6xkk`, `7xkk`, `Annn`, `Cxkk`
-- [ ] **Group D — ALU (8xy_):** `8xy0` through `8xyE` (8 instructions)
-- [ ] **Group E — Memory & misc (Fx__):** `Fx07`, `Fx15`, `Fx18`, `Fx1E`, `Fx29`, `Fx33`, `Fx55`, `Fx65`
-- [ ] Passes [Timendus chip8-test-suite](https://github.com/Timendus/chip8-test-suite): `test_opcode.ch8`
+- [x] **Group A — Control flow:** `00E0`, `00EE`, `1nnn`, `2nnn`, `Bnnn`
+- [x] **Group B — Conditionals:** `3xkk`, `4xkk`, `5xy0`, `9xy0`
+- [x] **Group C — Load & assign:** `6xkk`, `7xkk`, `Annn`, `Cxkk`
+- [x] **Group D — ALU (8xy_):** `8xy0` through `8xyE` (8 instructions)
+- [x] **Group E — Memory & misc (Fx__):** `Fx07`, `Fx15`, `Fx18`, `Fx1E`, `Fx29`, `Fx33`, `Fx55`, `Fx65`
+- [x] Passes [Timendus chip8-test-suite](https://github.com/Timendus/chip8-test-suite): `test_opcode.ch8`
 
 ### Phase 4 — Terminal Display
 - [ ] `Display.java` — `boolean[64][32]` framebuffer
