@@ -1,10 +1,13 @@
 package com.ismael.chip8.core;
 
+import com.ismael.chip8.io.Display;
+
 public class CPU {
 
 	private final Memory memory;
 	private final Registers registers;
 	private final Stack stack;
+	private final Display display;
 	
 	private int opcode;
 	private int nnn;
@@ -13,11 +16,12 @@ public class CPU {
 	private int y;
 	private int kk;
 	
-	public CPU(Memory memory, Registers registers, Stack stack) {
+	public CPU(Memory memory, Registers registers, Stack stack, Display display) {
 		super();
 		this.memory = memory;
 		this.registers = registers;
 		this.stack = stack;
+		this.display = display;
 	}
 	
 	public int fetch() {
@@ -45,7 +49,7 @@ public class CPU {
 		switch(opcode & 0xF000) {
 		case 0x0000:
 			if(opcode == 0x00E0) {
-				System.out.println("Executing: 00E0"); 
+				display.clear();
 			} else if(opcode == 0x00EE) {
 				registers.setPc(stack.pop());
 			} else {
@@ -53,7 +57,6 @@ public class CPU {
 			}
 			break;
 		case 0x1000:
-			System.out.printf("Executing 1nn - Unconditional Jump to %03X\n", nnn);
 			registers.setPc(nnn);
 			break;
 		case 0x2000:
@@ -135,6 +138,29 @@ public class CPU {
 			int rand = (int) (Math.random() * 256);
             registers.setV(x, rand & kk);
             break;
+		case 0xD000:
+			int startX = registers.getV(x);
+			int startY = registers.getV(y);
+			registers.setV(0xF, 0);
+			
+			for(int row = 0; row < n; row++) {
+				int spriteByte = memory.read(registers.getI() + row);
+				
+				for(int col = 0; col < 8; col++) {
+					if((spriteByte & (0x80 >> col)) != 0) {
+						int px = (startX + col) % 64;
+						int py = (startY + row) % 32;
+						
+						if(display.getPixel(px, py)) {
+							registers.setV(0xF, 1);
+						}
+						
+						display.setPixel(px, py, !display.getPixel(px, py));
+					}
+				}
+				
+			}
+			break;
 		case 0x8000:
             switch (n) {
                 case 0x0: 
