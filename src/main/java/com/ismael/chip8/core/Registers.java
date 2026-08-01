@@ -47,7 +47,7 @@ public class Registers {
 		}
 
 		public void setDelayTimer(int delayTimer) {
-			this.delayTimer = delayTimer & 0xFFFF;
+			this.delayTimer = delayTimer & 0xFF;
 		}
 
 		public int getSoundTimer() {
@@ -55,7 +55,7 @@ public class Registers {
 		}
 
 		public void setSoundTimer(int soundTimer) {
-			this.soundTimer = soundTimer & 0xFFF;
+			this.soundTimer = soundTimer & 0xFF;
 		}
 
 		public int getV(int index) {

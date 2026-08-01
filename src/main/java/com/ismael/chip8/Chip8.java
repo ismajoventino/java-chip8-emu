@@ -39,8 +39,10 @@ public class Chip8 {
 		
 		RomLoader loader = new RomLoader();
 		
+		loader.loadFonts(memory);
+		
 		try {
-			loader.loadRom("test_opcode.ch8", memory);
+			loader.loadRom("roms/IBM Logo.ch8", memory);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			return; 
@@ -48,18 +50,21 @@ public class Chip8 {
 		
 		renderer.clearScreen();
 		
-		for (int i = 0; i < 300; i++) {
-			int opcode = cpu.fetch();
-			cpu.decode(opcode);
-			cpu.execute();
-			
-			renderer.render();
-			
-			try {
-				Thread.sleep(16);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		while (true) {
+
+		    for (int i = 0; i < 12; i++) {
+		        int opcode = cpu.fetch();
+		        cpu.decode(opcode);
+		        cpu.execute();
+		    }
+
+		    renderer.render();
+
+		    try {
+		        Thread.sleep(16);
+		    } catch (InterruptedException e) {
+		        e.printStackTrace();
+		    }
 		}
 		
 

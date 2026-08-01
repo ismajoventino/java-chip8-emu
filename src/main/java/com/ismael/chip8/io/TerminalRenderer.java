@@ -9,24 +9,22 @@ public class TerminalRenderer {
 	}
 	
 	public void render() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("\033[H");
-		
-		for(int y = 0; y < 32; y++) {
-			for(int x = 0; x < 64; x++) {
-				if(display.getPixel(x, y)) {
-					sb.append("█");
-				} else {
-					sb.append(" ");
-				}
-			}
-			sb.append("\n");
-		}
-		System.out.println(sb.toString());
+	    StringBuilder sb = new StringBuilder();
+
+	    for (int y = 0; y < 32; y++) {
+	        sb.append("\033[").append(y + 1).append(";1H");
+	        for (int x = 0; x < 64; x++) {
+	            sb.append(display.getPixel(x, y) ? "█" : " ");
+	        }
+	    }
+
+	    System.out.print(sb);
+	    System.out.flush();
 	}
 	
 	public void clearScreen() {
-		System.out.print("\033[2J\033[H");
+		//System.out.print("\033[2J\033[H");
+		System.out.print("\033[H\033[2J");
 		System.out.flush();
 	}
 	
